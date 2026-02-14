@@ -2,19 +2,34 @@ import streamlit as st
 
 st.write("ISOM5240")
 st.write("ISOM5240")
+# Program title: Simple Storytelling App (Text to Story + Audio)
 
+import streamlit as st
 from transformers import pipeline
 
-# Load text generation pipeline
-# Specify the model you want to use
-generator = pipeline("text-generation",
-                     model="distilbert/distilgpt2")
+# Set up the page
+st.set_page_config(page_title="Text to Audio Story", page_icon="🦜")
+st.header("Turn Your Text into an Audio Story")
 
-# Generate text
-prompt = "Once upon a time in a land far, far away"
-generated_story = generator(prompt,
-                            max_length=150)
+# User enters text
+user_text = st.text_area("Enter a prompt or scenario for your story:")
 
-# Output
-print("Generated Story:")
-print(generated_story[0]['generated_text'])
+if user_text:
+    # Stage 1: Text to Story
+    st.text('Generating a story...')
+    story_generator = pipeline("text-generation", model="pranavpsv/genre-story-generator-v2")
+    story = story_generator(user_text)[0]['generated_text']
+    st.write(story)
+
+    # Stage 2: Story to Audio
+    st.text('Generating audio data...')
+    audio_generator = pipeline("text-to-audio", model="Matthijs/mms-tts-eng")
+    speech_output = audio_generator(story)
+
+    # Play button
+    if st.button("Play Audio"):
+        audio_array = speech_output["audio"]
+        sample_rate = speech_output["sampling_rate"]
+        # Play audio directly using Streamlit
+        st.audio(audio_array,
+                 sample_rate=sample_rate)
