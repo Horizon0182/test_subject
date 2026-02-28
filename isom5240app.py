@@ -4,7 +4,7 @@ import streamlit as st
 
 def img_classify(img_file):
   age_classifier = pipeline("image-classification", model="ibombonato/swin-age-classifier")
-  img_file = img_file.open(img_file).convert("RGB")
+  img_file = img_file.convert("RGB")
   
   # Classify age
   age_predictions = age_classifier(img_file)
