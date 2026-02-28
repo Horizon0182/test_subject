@@ -18,9 +18,9 @@ def img_classify(img_file):
 
 def main():
   st.header("Age classifier")
-  img_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+  img = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
-  img_classify(img_file)
+  age_predictions = img_classify(img)
 
   st.write("Predicted Age Range:")
   st.write(f"Age range: {age_predictions[0]['label']}")
