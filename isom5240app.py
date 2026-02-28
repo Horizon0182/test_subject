@@ -7,7 +7,7 @@ st.header("Title: Age Classification using ViT")
 
 # Load the age classification pipeline
 # The code below should be placed in the main part of the program
-age_classifier = pipeline("image-classification", model="agestau/fashion_classification_2")
+age_classifier = pipeline("image-classification", model="ibombonato/swin-age-classifier")
 
 image_name = "middleagedMan.jpg"
 image_name = Image.open(image_name).convert("RGB")
