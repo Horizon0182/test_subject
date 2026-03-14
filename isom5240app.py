@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
 
 
-
+st.header("Testing app")
 from transformers import AutoModelForSequenceClassification
 from transformers import AutoTokenizer
 import torch
